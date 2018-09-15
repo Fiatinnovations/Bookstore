@@ -1,0 +1,21 @@
+.spacer{
+	padding-top: 20px;
+	align-items: center;
+}
+
+.slider{
+	max-height: 50px;
+}
+
+.thumbnail .description{
+	color:#959799;
+}
+
+/* .badges{
+	font-size: 52px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+} */
+}
