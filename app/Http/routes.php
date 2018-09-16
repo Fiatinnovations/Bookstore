@@ -22,6 +22,14 @@ Route::get('/home', 'HomeController@index');*/
 use Illuminate\Http\Request as Request;
 Route::post('/createabook', ['uses'=>'BooksController@createBook','as'=>'createBook']);
 Route::get('/createanewbook', ['uses'=>'BooksController@newbook','as'=>'createanewBook'])->middleware('auth');
+Route::get('book/{id}',['uses'=>'BooksController@displayBook', 'as'=>'displayBook']);
+
+Route::get('/Shopping-Cart/{id}',['uses'=>'BooksController@addToCart',
+'as'=>'book.addToCart']);
+
+Route::get('/yourshoppingcart', ['uses'=>'BooksController@shoppingCart', 'as'=>'books.cart']);
+
+
 Route::resource('posts','Postscontroller');
 Route::get('/admin/posts', 'Postscontroller@index');
 
@@ -36,7 +44,7 @@ Route::get('/', ['uses'=>'ProductController@index', 'as'=>'product.index']);
 Route::get('/profile', ['uses'=>'UserController@userProfile',
 'as'=>'user.profile']);
 
-Route::get('/Shopping-Cart/{id}',['uses'=>'productController@addToCart',
-'as'=>'product.addToCart']);
+/*Route::get('/Shopping-Cart/{id}',['uses'=>'productController@addToCart',
+'as'=>'product.addToCart']);*/
 
-Route::get('/yourshoppingcart', ['uses'=>'ProductController@shoppingCart', 'as'=>'products.cart']);
+/*Route::get('/yourshoppingcart', ['uses'=>'ProductController@shoppingCart', 'as'=>'products.cart']);*/

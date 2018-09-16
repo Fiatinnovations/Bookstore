@@ -3,21 +3,49 @@
 namespace App\Http\Controllers;
 use App\Book;
 use App\Photo;
+use App\Cart;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 /*use App\Http\Requests;*/
 
 class BooksController extends Controller
 {
+	// Logic for displaying all books
    public function index(){
-
 	    $books=Book::orderBy('created_at','desc')->get();
 	   	return view('books.index',['books'=> $books]);
 
    }
 
+    public function addToCart(Request $request, $id){
+    	$book = Book::find($id);
+    	$oldCart = Session::has('cart') ? Session::get('cart') : null;
+    	$cart = new Cart($oldCart);
+    	$cart->add($book, $book->id);
+    	$request->session()->put('cart', $cart);
+    	return redirect()->route('books.index');
+
+
+    }
+
+    public function shoppingCart(){
+        if(!Session::has('cart')){
+            return view('book.cart', ['books' => null]);
+        }
+
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        return redirect()->back()->with('books.cart', ['books'=>$cart->items, 'totalPrice' =>$cart->totalPrice]);
+    }
+
+
+	/*
+	This function handles the Post request logic to create a new Book.
+	It also Validates User input
+	*/
    public function createBook(Request $request){
 
    		$validator = Validator::make($request->all(),[
@@ -61,7 +89,19 @@ class BooksController extends Controller
    		}
    }
 
+    //This function displays the create Book page
+
    public function newbook(){
    		return view('books.create');
    }
+
+   // This function handles the individual book display logic.
+
+   public function displayBook($id){
+   		$book = Book::findOrFail($id);
+   		return view('books.display', compact('book'));
+   			
+   }
+
+
 }
