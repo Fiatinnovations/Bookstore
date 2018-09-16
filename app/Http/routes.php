@@ -11,6 +11,7 @@
 |
 */
 
+
 /*Route::get('/', function () {
     return view('welcome');
 });
@@ -18,14 +19,16 @@
 Route::auth();
 
 Route::get('/home', 'HomeController@index');*/
-
-
+use Illuminate\Http\Request as Request;
+Route::post('/createabook', ['uses'=>'BooksController@createBook','as'=>'createBook']);
+Route::get('/createanewbook', ['uses'=>'BooksController@newbook','as'=>'createanewBook'])->middleware('auth');
 Route::resource('posts','Postscontroller');
 Route::get('/admin/posts', 'Postscontroller@index');
 
 Route::auth();
 
-Route::get('/books', ['uses'=>'BooksController@index'])->middleware('auth');
+Route::get('/books', ['uses'=>'BooksController@index', 'as'=>'books.index'])->middleware('auth');
+
 
 Route::get('/home', 'HomeController@index');
 Route::get('/', ['uses'=>'ProductController@index', 'as'=>'product.index']);
