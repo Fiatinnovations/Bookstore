@@ -28,3 +28,5 @@ Route::auth();
 Route::get('/books', ['uses'=>'BooksController@index', 'as'=>'books.index'])->middleware('auth');
 Route::get('/home', 'HomeController@index');
 Route::get('/', ['uses'=>'BooksController@index', 'as'=>'books.index']);
+/*Route::post('/edit', ['uses'=>'BooksController@getUrl', 'as'=>'edit']);*/
+Route::post('/edt',['uses'=>'BooksController@editBook', 'as'=>'edit']);

@@ -116,5 +116,26 @@ class BooksController extends Controller
 
    }
 
+  /* public function getUrl (Request $request){
+
+	return response()->json(['message'=>$request['description'],'title'=>$request['title']]);
+
+}*/
+
+public function editBook(Request $Request){
+
+	$validator = Validator::make($request->all(),[
+		'title'=>'required',
+		'description' => 'required'
+	]);
+
+	$book = Book::find($request['bookId']);
+	$book->title = $request['title'];
+	$book->description = $request['description'];
+	$book->update();
+	return response()->json(['message'=>'Edit Successsful'],200);
+
+}
+
 
 }
