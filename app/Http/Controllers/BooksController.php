@@ -104,4 +104,17 @@ class BooksController extends Controller
    }
 
 
+   public function deleteBook($id){
+   	$book = Book::where('id', $id)->first();
+   	$message = 'You cant Delete this Book';
+   	if(Auth::user() != $book->user){
+   		return redirect()->back()->with($message);
+   	}else{
+   		$book->delete();
+   		return redirect()->route('books.index')->with(['message'=>'Book Deleted Successfully']);
+   	}
+
+   }
+
+
 }

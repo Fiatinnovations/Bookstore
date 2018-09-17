@@ -1,6 +1,8 @@
 @extends('layouts.main')
 @section('content')
 <div class="container">
+  <div style="padding-right: 70px;">@include('partials.validation')</div>
+  
   <div class="row">
     <div class="col">
      <div class="carousel-item active">
@@ -23,11 +25,13 @@
     <a class="dropdown-item" href="#">4</a>
     <a class="dropdown-item" href="#">5</a>
   </div>
+  @if(Auth::user() == $book->user)
   <div style="margin-top: 10px;">
-     <a class="btn btn-danger" href="">Delete</a>
+     <a class="btn btn-danger" href="{{route('deleteBook',['id'=>$book->id])}}">Delete</a>
     <a class="btn btn-primary" href="">Edit</a>
     
    </div>
+   @endif
 
 </div>
 
@@ -37,4 +41,5 @@
     </div>
   </div>
 </div>
+
 @endsection
